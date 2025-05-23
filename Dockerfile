@@ -1,11 +1,10 @@
 FROM wallabag/wallabag:2.6.7
 
-# Railway expects apps to bind to PORT environment variable
+# Set environment for production
 ENV SYMFONY_ENV=prod
-ENV PORT=80
 
-# Make sure we're listening on all interfaces
-EXPOSE $PORT
+# Expose port 80 (Railway will handle port mapping)
+EXPOSE 80
 
-# Override the default command to use Railway's PORT
-CMD ["apache2-foreground"]
+# The wallabag image uses nginx + php-fpm, not apache
+# Let the default entrypoint handle the startup
